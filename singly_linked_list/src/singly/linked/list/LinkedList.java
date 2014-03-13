@@ -24,6 +24,7 @@ public class LinkedList {
 		return size;
 	}
 	
+	// insert new node at beginning of the list
 	public void insertAtStart(int val) {
 		Node nptr = new Node(val, null);
 		size ++;
@@ -38,6 +39,7 @@ public class LinkedList {
 		}
 	}
 	
+	// insert new node at end of the list
 	public void insertAtEnd(int val) {
 		Node nptr = new Node(val, null);
 		size ++;
