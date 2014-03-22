@@ -19,7 +19,7 @@ public class DoublyLinkedList {
 			head = newNode;
 		}
 
-		size++;
+		size ++;
 	}
 
 	public void addRear(int data) {
@@ -35,6 +35,43 @@ public class DoublyLinkedList {
 			Node newNode = new Node(current.next, data, null);
 			current.next = newNode;
 		}
+		
+		size ++;
+	}
+	
+	public void removeFront() {
+		if (head == null) {
+			return;
+		}
+		
+		head = head.next;
+		head.previous = null;
+		size --;
+	}
+	
+	public void removeRear() {
+		if (head == null) {
+			return;
+		}
+		
+		if (head.next == null) {
+			head = null;
+			size --;
+			
+			return;
+		}
+		
+		Node current = head;
+		while (current.next.next != null) {
+			current = current.next;
+		}
+		current.next = null;
+		
+		size --;
+	}
+	
+	public boolean isEmpty() {
+		return head == null;
 	}
 
 	public void print() {
