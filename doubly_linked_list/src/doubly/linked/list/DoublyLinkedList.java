@@ -9,6 +9,10 @@ public class DoublyLinkedList {
 		head = null;
 		size = 0;
 	}
+	
+	public int getSize() {
+		return size;
+	}
 
 	public void addFront(int data) {
 		if (head == null) {
@@ -32,7 +36,7 @@ public class DoublyLinkedList {
 				current = current.next;
 			}
 
-			Node newNode = new Node(current.next, data, null);
+			Node newNode = new Node(current, data, null);
 			current.next = newNode;
 		}
 		
@@ -68,6 +72,37 @@ public class DoublyLinkedList {
 		current.next = null;
 		
 		size --;
+	}
+	
+	public void insertAt(int data, int index) {
+		if (head == null) {
+			return;
+		}
+		
+		if (index < 1 || index > size) {
+			return;
+		}
+		
+		Node current = head;
+		
+		int i = 1;
+		while (i < index) {
+			current = current.next;
+			i ++;
+		}
+		
+		if (current.previous == null) {
+			Node newNode = new Node(null, data, current);
+			current.previous = newNode;
+			head = newNode;
+		}
+		else {
+			Node newNode = new Node(current.previous, data, current);
+			current.previous.next = newNode;
+			current.previous = newNode;
+		}
+		
+		size ++;
 	}
 	
 	public boolean isEmpty() {
