@@ -35,5 +35,10 @@ public class DoublyLinkedListTest {
 		doublyLinkedList2.insertAt(5, 2);
 		doublyLinkedList2.print();
 		System.out.println();
+		
+		System.out.println("removeAt");
+		doublyLinkedList2.removeAt(3);
+		doublyLinkedList2.print();
+		System.out.println();
 	}
 }
