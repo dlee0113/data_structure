@@ -25,8 +25,8 @@ class Link {
 // //////////////////////////////////////////////////////////////
 
 class DoublyLinkedList {
-	private Link first; // ref to first item
-	private Link last; // ref to last item
+	private Link first; // ref to first item (head)
+	private Link last; // ref to last item (tail)
 	// -------------------------------------------------------------
 
 	public DoublyLinkedList() // constructor
@@ -46,25 +46,31 @@ class DoublyLinkedList {
 	{
 		Link newLink = new Link(dd); // make new link
 
-		if (isEmpty()) // if empty list,
-			last = newLink; // newLink <-- last
-		else
-			first.previous = newLink; // newLink <-- old first
-		newLink.next = first; // newLink --> old first
-		first = newLink; // first --> newLink
+		if (isEmpty()) { // if empty list, both head and tail reference to the same link
+			last = newLink; // newLink <-- last, make new link as tail
+		}
+		else {
+			first.previous = newLink; // newLink <-- old first, point previous pointer of head to new link
+			newLink.next = first; // newLink --> old first, point next pointer of new link to head
+		}
+		
+		first = newLink; // first --> newLink, make new node as head
 	}
 
 	// -------------------------------------------------------------
 	public void insertLast(long dd) // insert at end of list
 	{
 		Link newLink = new Link(dd); // make new link
-		if (isEmpty()) // if empty list,
-			first = newLink; // first --> newLink
-		else {
-			last.next = newLink; // old last --> newLink
-			newLink.previous = last; // old last <-- newLink
+		
+		if (isEmpty()) { // if empty list, both head and tail reference to the same link
+			first = newLink; // first --> newLink, make new link as head
 		}
-		last = newLink; // newLink <-- last
+		else {
+			last.next = newLink; // old last --> newLink, point next pointer of tail to new link
+			newLink.previous = last; // old last <-- newLink, point previous pointer of new link to tail
+		}
+		
+		last = newLink; // newLink <-- last, make new link as tail
 	}
 
 	// -------------------------------------------------------------
