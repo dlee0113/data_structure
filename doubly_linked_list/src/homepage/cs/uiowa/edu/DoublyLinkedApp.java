@@ -77,11 +77,14 @@ class DoublyLinkedList {
 	public Link deleteFirst() // delete first link
 	{ // (assumes non-empty list)
 		Link temp = first;
+		
 		if (first.next == null) // if only one item
 			last = null; // null <-- last
 		else
 			first.next.previous = null; // null <-- old next
+		
 		first = first.next; // first --> old next
+		
 		return temp;
 	}
 
@@ -89,11 +92,14 @@ class DoublyLinkedList {
 	public Link deleteLast() // delete last link
 	{ // (assumes non-empty list)
 		Link temp = last;
+		
 		if (first.next == null) // if only one item
 			first = null; // first --> null
 		else
 			last.previous.next = null; // old previous --> null
+		
 		last = last.previous; // old previous <-- last
+		
 		return temp;
 	}
 
@@ -101,26 +107,30 @@ class DoublyLinkedList {
 	// insert dd just after key
 	public boolean insertAfter(long key, long dd) { // (assumes non-empty list)
 		Link current = first; // start at beginning
+		
 		while (current.dData != key) // until match is found,
 		{
 			current = current.next; // move to next link
+			
 			if (current == null)
 				return false; // didn't find it
 		}
+		
 		Link newLink = new Link(dd); // make new link
 
 		if (current == last) // if last link,
 		{
-			newLink.next = null; // newLink --> null
-			last = newLink; // newLink <-- last
+			newLink.next = null; // newLink --> null, point next pointer of new link to null (sentinel node)
+			last = newLink; // newLink <-- last, make new link as tail
 		} else // not last link,
 		{
-			newLink.next = current.next; // newLink --> old next
-											// newLink <-- old next
-			current.next.previous = newLink;
+			newLink.next = current.next; // newLink --> old next, point next pointer of new link to next link of current link
+			current.next.previous = newLink; // newLink <-- old next, point previous pointer of next link of current link to new link
 		}
-		newLink.previous = current; // old current <-- newLink
-		current.next = newLink; // old current --> newLink
+		
+		newLink.previous = current; // old current <-- newLink, point previous pointer of new link to current link
+		current.next = newLink; // old current --> newLink, point next pointer of current link to new link
+		
 		return true; // found it, did insertion
 	}
 
@@ -128,12 +138,14 @@ class DoublyLinkedList {
 	public Link deleteKey(long key) // delete item w/ given key
 	{ // (assumes non-empty list)
 		Link current = first; // start at beginning
+		
 		while (current.dData != key) // until match is found,
 		{
 			current = current.next; // move to next link
 			if (current == null)
 				return null; // didn't find it
 		}
+		
 		if (current == first) // found it; first item?
 			first = current.next; // first --> old next
 		else
@@ -147,6 +159,7 @@ class DoublyLinkedList {
 			// not last
 			// old previous <-- old next
 			current.next.previous = current.previous;
+		
 		return current; // return value
 	}
 
@@ -192,8 +205,12 @@ class DoublyLinkedApp {
 		theList.displayForward(); // display list forward
 		theList.displayBackward(); // display list backward
 
-		theList.deleteFirst(); // delete first item
-		theList.deleteLast(); // delete last item
+		Link firstLinkdeleted = theList.deleteFirst(); // delete first item
+		System.out.println("firstLinkdeleted: " + firstLinkdeleted.dData);
+		
+		Link lastLinkdeleted = theList.deleteLast(); // delete last item
+		System.out.println("lastLinkdeleted: " + lastLinkdeleted.dData);
+		
 		theList.deleteKey(11); // delete item with key 11
 
 		theList.displayForward(); // display list forward
