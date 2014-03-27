@@ -55,7 +55,7 @@ class DoublyLinkedList {
 			newLink.next = first; // newLink --> old first, point next pointer of new link to head
 		}
 		
-		first = newLink; // first --> newLink, make new node as head
+		first = newLink; // first --> newLink, make new node as head as last step regardless of size of the list
 	}
 
 	// -------------------------------------------------------------
@@ -71,7 +71,7 @@ class DoublyLinkedList {
 			newLink.previous = last; // old last <-- newLink, point previous pointer of new link to tail
 		}
 		
-		last = newLink; // newLink <-- last, make new link as tail
+		last = newLink; // newLink <-- last, make new link as tail as last step regardless of size of the list
 	}
 
 	// -------------------------------------------------------------
@@ -82,9 +82,9 @@ class DoublyLinkedList {
 		if (first.next == null) // if only one item
 			last = null; // null <-- last
 		else
-			first.next.previous = null; // null <-- old next
+			first.next.previous = null; // null <-- old next, point previous pointer of next node of head to null
 		
-		first = first.next; // first --> old next
+		first = first.next; // first --> old next // make next node of first node as head
 		
 		return temp;
 	}
@@ -97,9 +97,9 @@ class DoublyLinkedList {
 		if (first.next == null) // if only one item
 			first = null; // first --> null
 		else
-			last.previous.next = null; // old previous --> null
+			last.previous.next = null; // old previous --> null, point next pointer of previous node of tail to null
 		
-		last = last.previous; // old previous <-- last
+		last = last.previous; // old previous <-- last, make previous node of tail as tail
 		
 		return temp;
 	}
@@ -148,18 +148,18 @@ class DoublyLinkedList {
 		}
 		
 		if (current == first) // found it; first item?
-			first = current.next; // first --> old next
+			first = current.next; // first --> old next, point next pointer of current node to head
 		else
 			// not first
 			// old previous --> old next
-			current.previous.next = current.next;
+			current.previous.next = current.next; // point next pointer of previous node of current node to next node of current node
 
 		if (current == last) // last item?
-			last = current.previous; // old previous <-- last
+			last = current.previous; // old previous <-- last, point previous pointer of current node to tail
 		else
 			// not last
 			// old previous <-- old next
-			current.next.previous = current.previous;
+			current.next.previous = current.previous; // point previous pointer of next node of current node to previous node of current node
 		
 		return current; // return value
 	}
